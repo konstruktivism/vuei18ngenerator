@@ -99,7 +99,7 @@ class Generator
             throw new Exception('Could not generate JSON, error code '.json_last_error());
         }
 
-        return $jsonLocales;
+        return $this->getES6Module($jsonLocales);
     }
 
     /**
@@ -157,7 +157,7 @@ class Generator
                 mkdir(dirname($fileToCreate), 0777, true);
             }
 
-            file_put_contents($fileToCreate, $jsonLocales);
+            file_put_contents($fileToCreate, $this->getES6Module($jsonLocales));
         }
         return $createdFiles;
     }
@@ -356,6 +356,16 @@ class Generator
         }
 
         return mb_substr($filename, 0, $pos);
+    }
+
+    /**
+     * Returns an ES6 style module
+     * @param string $body
+     * @return string
+     */
+    private function getES6Module($body)
+    {
+        return "export default {$body}";
     }
 
 }

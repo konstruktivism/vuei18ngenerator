@@ -1,5 +1,5 @@
 {
-    "name": "konstruktiv/laravel-vue-i18n-generator",
+    "name": "konstruktiv/vue-i18n-generator",
     "type": "library",
     "description": "Generates a vue-i18n compatible include file from your Laravel translations.",
     "license": "MIT",

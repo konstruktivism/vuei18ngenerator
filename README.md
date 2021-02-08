@@ -1,24 +1,14 @@
 ## About
 
-**NO LONGER MAINTAINED**
-
-
-[![Build Status](https://travis-ci.org/martinlindhe/laravel-vue-i18n-generator.png?branch=master)](https://travis-ci.org/martinlindhe/laravel-vue-i18n-generator)
 
 
 Laravel 5 package that allows you to share your [Laravel localizations](https://laravel.com/docs/5.8/localization)
 with your [vue](http://vuejs.org/) front-end, using [vue-i18n](https://github.com/kazupon/vue-i18n) or [vuex-i18n](https://github.com/dkfbasel/vuex-i18n).
 
-
-## Laravel 5.7 notice!
-
-Configuration paths have changed in Laravel 5.7, in order for this package to function properly you need to configure correct paths for jsPath and jsFile in your `config\vue-i18n-generator.php`.
-
-
 ## Install the package
 
 In your project:
-```composer require martinlindhe/laravel-vue-i18n-generator --dev```
+```composer require konstruktiv/vue-i18n-generator --dev```
 
 ### For Laravel 5.4 and below:
 For older versions of the framework:
@@ -26,13 +16,13 @@ For older versions of the framework:
 Register the service provider in ```config/app.php```
 
 ```php
-MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
+Konstruktiv\VueI18nGenerator\GeneratorProvider::class,
 ```
 
 Next, publish the package default config:
 
 ```
-php artisan vendor:publish --provider="MartinLindhe\VueInternationalizationGenerator\GeneratorProvider"
+php artisan vendor:publish --provider="Konstruktiv\VueI18nGenerator\GeneratorProvider"
 ```
 
 ## Using vue-i18n
@@ -96,9 +86,6 @@ Object.keys(Locales).forEach(function (lang) {
 ...
 ```
 
-
-
-
 ## Using vuex-i18n
 
 ### vuex-i18n
@@ -146,36 +133,6 @@ var app = new Vue({
 });
 ```
 
-## Output Formats
-
-You can specify the output formats from `es6`, `umd`, or `json` with the `--format` option. (defaults to `es6`)
-
-```
-php artisan vue-i18n:generate --format {es6,umd,json}
-```
-
-### Use case example for UMD module
-
-```
-php artisan vue-i18n:generate --format umd
-```
-An UMD module can be imported into the browser, build system, node and etc.
-
-Now you can include the generated script in the browser as a normal script and reference it with window.vuei18nLocales.
-```vue
-<script src="{{ asset('js/vue-i18n-locales.generated.js') }}"></script>
-
-// in your js
-Vue.use(VueI18n)
-Vue.config.lang = Laravel.language
-Object.keys(window.vuei18nLocales).forEach(function (lang) {
-  Vue.locale(lang, window.vuei18nLocales[lang])
-})
-```
-You can still require/import it in your build system as stated above.
-
-One advantage of doing things like this is you are not obligated to do a build of your javascript each time a the translation files get changed/saved. A good example is if you have a backend that can read and write to your translation files (like Backpack). You can listen to a save event there and call vue-i18n-generator.
-
 ## Generating Multiple Files
 
 Sometimes you may want to generate multiple files as you want to make use of lazy loading. As such, you can specify that the generator produces multiple files within the destination directory.
@@ -220,14 +177,3 @@ Vue template:
     <p>{{ $t('message.hello', {name: 'visitor'}) }}</p>
 </div>
 ```
-
-
-## Notices
-
-- The generated file is an ES6 module.
-
-The more sophisticated pluralization localization as described [here](https://laravel.com/docs/5.5/localization#pluralization) is not supported since neither vue-i18n or vuex-i18n support this.
-
-# License
-
-Under [MIT](LICENSE)
